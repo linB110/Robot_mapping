@@ -1,6 +1,6 @@
 # Odometry Model
 
-狀態向量：
+state：
 
 ```
 [x, y, θ]^T  ->  [x̄', ȳ', θ̄']^T
@@ -8,7 +8,7 @@
 
 ---
 
-## 定義
+## definition
 
 ```
 δ_trans = sqrt((x̄' - x̄)^2 + (ȳ' - ȳ)^2)
@@ -24,21 +24,21 @@
 
 ---
 
-## 問題設定
+## problem formulation
 
-給定：
+given：
 
 ```
 [δ_rot1, δ_trans, δ_rot2]^T
 ```
 
-計算：
+compute：
 
 ```
 [x̄', ȳ', θ̄']^T
 ```
 
-初始姿態：
+initial pose：
 
 ```
 [x̄, ȳ, θ̄]^T = [0, 0, 0]^T
@@ -46,7 +46,7 @@
 
 ---
 
-## 角度關係
+## angular relationship
 
 ```
 θ̄' = δ_rot2 + θ̄ + δ_rot1
@@ -54,22 +54,17 @@
 
 ---
 
-## 幾何推導
+## geometry proof
 
-定義：
 
 ```
 A = x̄' - x̄
 B = ȳ' - ȳ
 ```
 
-距離關係：
-
 ```
 δ_trans^2 = A^2 + B^2
 ```
-
-角度關係：
 
 ```
 tan(δ_rot1 + θ̄) = B / A
@@ -77,7 +72,7 @@ tan(δ_rot1 + θ̄) = B / A
 
 ---
 
-### 解出 A, B
+### solving A, B
 
 ```
 B = A * tan(δ_rot1 + θ̄)
@@ -85,6 +80,9 @@ B = A * tan(δ_rot1 + θ̄)
 
 ```
 δ_trans^2 = A^2 (1 + tan^2(δ_rot1 + θ̄))
+
+          By trignometry identity
+ 
           = A^2 sec^2(δ_rot1 + θ̄)
 ```
 
@@ -99,7 +97,7 @@ B = δ_trans sin(δ_rot1 + θ̄)
 
 ---
 
-## 最終更新方程式
+## final relationship of observation and update robot pose
 
 ```
 x̄' = x̄ + δ_trans cos(δ_rot1 + θ̄)

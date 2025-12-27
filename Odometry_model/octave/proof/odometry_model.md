@@ -1,129 +1,107 @@
 # Odometry Model
 
 狀態向量：
-\[
-\begin{bmatrix}
-x \\
-y \\
-\theta
-\end{bmatrix}
-\;\longrightarrow\;
-\begin{bmatrix}
-\bar{x}' \\
-\bar{y}' \\
-\bar{\theta}'
-\end{bmatrix}
-\]
+
+```
+[x, y, θ]^T  ->  [x̄', ȳ', θ̄']^T
+```
 
 ---
 
 ## 定義
 
-\[
-\delta_{trans} = \sqrt{(\bar{x}' - \bar{x})^2 + (\bar{y}' - \bar{y})^2}
-\]
+```
+δ_trans = sqrt((x̄' - x̄)^2 + (ȳ' - ȳ)^2)
+```
 
-\[
-\delta_{rot1} = \operatorname{atan2}(\bar{y}' - \bar{y},\; \bar{x}' - \bar{x}) - \bar{\theta}
-\]
+```
+δ_rot1 = atan2(ȳ' - ȳ, x̄' - x̄) - θ̄
+```
 
-\[
-\delta_{rot2} = \bar{\theta}' - \bar{\theta} - \delta_{rot1}
-\]
+```
+δ_rot2 = θ̄' - θ̄ - δ_rot1
+```
 
 ---
 
 ## 問題設定
 
 給定：
-\[
-\begin{bmatrix}
-\delta_{rot1},\; \delta_{trans},\; \delta_{rot2}
-\end{bmatrix}^T
-\]
+
+```
+[δ_rot1, δ_trans, δ_rot2]^T
+```
 
 計算：
-\[
-\begin{bmatrix}
-\bar{x}',\; \bar{y}',\; \bar{\theta}'
-\end{bmatrix}^T
-\]
+
+```
+[x̄', ȳ', θ̄']^T
+```
 
 初始姿態：
-\[
-\begin{bmatrix}
-\bar{x},\; \bar{y},\; \bar{\theta}
-\end{bmatrix}^T
-=
-\begin{bmatrix}
-0,\;0,\;0
-\end{bmatrix}^T
-\]
+
+```
+[x̄, ȳ, θ̄]^T = [0, 0, 0]^T
+```
 
 ---
 
 ## 角度關係
 
-\[
-\bar{\theta}' = \delta_{rot2} + \bar{\theta} + \delta_{rot1}
-\]
+```
+θ̄' = δ_rot2 + θ̄ + δ_rot1
+```
 
 ---
 
 ## 幾何推導
 
 定義：
-\[
-\bar{x}' - \bar{x} = A, \quad \bar{y}' - \bar{y} = B
-\]
 
-\[
-\delta_{trans}^2 = A^2 + B^2
-\]
+```
+A = x̄' - x̄
+B = ȳ' - ȳ
+```
 
-\[
-\tan(\delta_{rot1} + \bar{\theta}) = \frac{B}{A}
-\]
+距離關係：
+
+```
+δ_trans^2 = A^2 + B^2
+```
+
+角度關係：
+
+```
+tan(δ_rot1 + θ̄) = B / A
+```
 
 ---
 
-### 解出 \(A, B\)
+### 解出 A, B
 
-\[
-B = A \tan(\delta_{rot1} + \bar{\theta})
-\]
+```
+B = A * tan(δ_rot1 + θ̄)
+```
 
-\[
-\delta_{trans}^2
-= A^2 \left(1 + \tan^2(\delta_{rot1} + \bar{\theta})\right)
-\]
+```
+δ_trans^2 = A^2 (1 + tan^2(δ_rot1 + θ̄))
+          = A^2 sec^2(δ_rot1 + θ̄)
+```
 
-\[
-= A^2 \sec^2(\delta_{rot1} + \bar{\theta})
-\]
+```
+A^2 = δ_trans^2 cos^2(δ_rot1 + θ̄)
+```
 
-\[
-\Rightarrow
-A^2 = \delta_{trans}^2 \cos^2(\delta_{rot1} + \bar{\theta})
-\]
-
-\[
-A = \delta_{trans} \cos(\delta_{rot1} + \bar{\theta})
-\]
-
-\[
-B = \delta_{trans} \sin(\delta_{rot1} + \bar{\theta})
-\]
+```
+A = δ_trans cos(δ_rot1 + θ̄)
+B = δ_trans sin(δ_rot1 + θ̄)
+```
 
 ---
 
 ## 最終更新方程式
 
-\[
-\boxed{
-\begin{aligned}
-\bar{x}' &= \bar{x} + \delta_{trans} \cos(\delta_{rot1} + \bar{\theta}) \\
-\bar{y}' &= \bar{y} + \delta_{trans} \sin(\delta_{rot1} + \bar{\theta})
-\end{aligned}
-}
-\]
+```
+x̄' = x̄ + δ_trans cos(δ_rot1 + θ̄)
+ȳ' = ȳ + δ_trans sin(δ_rot1 + θ̄)
+```

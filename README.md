@@ -9,5 +9,8 @@ The tools provided by source file is slightly modified to be compatible with Mat
 
 # Results
 
-![video](./video/EKF_SLAM.mp4)
-<video controls width="600" src="https://github.com/user-attachments/assets/8581eed7-1dd1-4ebc-a152-982477e45372"></video>
+| Title | Video |
+| --- | --- |
+| odometry | https://github.com/user-attachments/assets/8581eed7-1dd1-4ebc-a152-982477e45372 |
+| EKF SLAM | https://github.com/user-attachments/assets/73430fb7-edc1-4bac-a772-9e65e656bbd6 |
+

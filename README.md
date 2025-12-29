@@ -10,3 +10,4 @@ The tools provided by source file is slightly modified to be compatible with Mat
 # Results
 
 ![video](./video/EKF_SLAM.mp4)
+<video controls width="600" src="https://github.com/user-attachments/assets/8581eed7-1dd1-4ebc-a152-982477e45372"></video>

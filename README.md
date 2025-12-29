@@ -13,5 +13,5 @@ The tools provided by source file is slightly modified to be compatible with Mat
 | --- | --- |
 | odometry | <video controls width="600" src="https://github.com/user-attachments/assets/8581eed7-1dd1-4ebc-a152-982477e45372"></video> |
 | EKF SLAM | <video controls width="600" src="https://github.com/user-attachments/assets/73430fb7-edc1-4bac-a772-9e65e656bbd6"></video> |
-| EKF SLAM | ![My image](./video/Unscented_transform2.png)|
+| Unscented transform | ![My image](./video/Unscented_transform2.png)|
 

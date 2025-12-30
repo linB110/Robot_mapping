@@ -72,8 +72,8 @@ for i = 1:m
         for j = 1:2*n+1
 		    delta_x = landmarkXs(j) - sigma_points(1,j);
 			delta_y = landmarkYs(j) - sigma_points(2,j);
-            z_points(1, j) = sqrtm(delta_x' * delta_x + delta_y' * delta_y);
-            z_points(2, j) = normalize_angle(atan2(delta_y, delta_x));
+            z_points(1, j) = sqrt(delta_x* delta_x + delta_y* delta_y);
+            z_points(2, j) = normalize_angle(atan2(delta_y, delta_x) - sigma_points(3, j));
         end
 
         % setup the weight vector for mean and covariance
@@ -87,9 +87,14 @@ for i = 1:m
         % For computing the expected_bearing compute a weighted average by
         % summing the sines/cosines of the angle
         z_m = zeros(2,1);
-        for j = 1:2*n+1
-            z_m = z_m + wm(1, j) * z_points(:, j);
+	    x_bar = 0;
+	    y_bar = 0;
+	    for j = 1:2*n+1
+		    z_m = z_m + wm(j) * z_points(:, j);
+		    x_bar = x_bar + wm(j) * cos(z_points(2, j));
+		    y_bar = y_bar + wm(j) * sin(z_points(2, j));
         end
+	    z_m(2) = atan2(y_bar, x_bar);
     
     % Step 4
 	% TODO: Compute the innovation covariance matrix S (2x2), line 9 on slide 32
@@ -98,7 +103,9 @@ for i = 1:m
 
         S = zeros(2,2);
         for j = 1:2*n+1
-            S = S + wc(1, j) * ( (z_points(:, j) - z_m) * (z_points(:, j) - z_m)' );
+            diff = z_points(:, j) - z_m;
+            diff(2) = normalize_angle(diff(2));
+            S = S + wc(1, j) * diff * diff';
         end
         
         % add noise
@@ -111,7 +118,13 @@ for i = 1:m
         % Remember to normalize the bearing after computing the difference
     sigma_xz = zeros(n,2);
     for j = 1:2*n+1
-        sigma_xz = sigma_xz + wc(1, j) * ( (sigma_points(:, j) - mu) * (z_points(:, j) - z_m)' );
+        dx = sigma_points(:, j) - mu;
+        dx(3) = normalize_angle(dx(3));
+        
+        dz = z_points(:, j) - z_m;
+        dz(2) = normalize_angle(dz(2));
+        
+        sigma_xz = sigma_xz + wc(1, j) * dx * dz';
     end
 
     % Step 6
@@ -124,7 +137,10 @@ for i = 1:m
     % Step 7, 8
 	% TODO: Update mu and sigma, line 12 + 13 on slide 32
         % normalize the relative bearing
-    mu = mu + K * (z_actual - z_m);
+    diff_z = z_actual - z_m;
+    diff_z(2) = normalize_angle(diff_z(2));
+    mu = mu + K * diff_z;
+
     sigma = sigma - K * S * K';
 	% TODO: Normalize the robot heading mu(3)
     mu(3) = normalize_angle(mu(3));

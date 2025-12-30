@@ -54,7 +54,6 @@ for i = 1:2*n+1
      sigma = sigma + wc(1, i) * diff * diff';
 end
 
-% Motion noise
 motionNoise = 0.1;
 R3 = [motionNoise, 0, 0; 
      0, motionNoise, 0; 

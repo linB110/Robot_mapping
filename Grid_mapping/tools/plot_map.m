@@ -7,7 +7,15 @@ f.Visible = "off";
 	axis(mapBox);
 	hold on;
 	map = map';
-	imshow(ones(size(map)) - log_odds_to_prob(map))
+    prob_map = log_odds_to_prob(map);
+    prob_map = max(min(prob_map, 0.98), 0.02);
+    
+    imagesc(1 - prob_map);      
+    axis image;
+    colormap(gray);
+    hold on;
+
+    colormap(gray);
 	s = size(map);
     s = s(1:2);
         set(gcf, "position", [50 50 s*5]) 

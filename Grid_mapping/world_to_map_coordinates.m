@@ -1,13 +1,12 @@
 function [pntsMap] = world_to_map_coordinates(pntsWorld, gridSize, offset)
-% Convert 2xN world coordinates to map indices (row,col)
-% Map rows → y, Map cols → x
-% pntsWorld: 2xN [x;y] in meters
-% offset: [offsetX; offsetY]
-% gridSize: meters per cell
-% Output pntsMap: 2xN, [row; col] indices for MATLAB
+% Convert points from the world coordinates frame to the map frame.
+% pntsWorld is a matrix of N points with each column representing a point in world coordinates (meters).
+% gridSize is the size of each grid in meters.
+% offset = [offsetX; offsetY] is the offset that needs to be subtracted from a point
+% when converting to map coordinates.
+% pntsMap is a 2xN matrix containing the corresponding points in map coordinates.
 
-cols = round((pntsWorld(1,:) - offset(1)) / gridSize) + 1;  % x → col
-rows = round((pntsWorld(2,:) - offset(2)) / gridSize) + 1;  % y → row
+% TODO: compute pntsMap
+pntsMap = floor((pntsWorld - repmat(offset, 1, size(pntsWorld, 2)))./gridSize);
 
-pntsMap = [rows; cols];
 end

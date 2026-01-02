@@ -3,6 +3,6 @@ function p = log_odds_to_prob(l)
 % l could be a scalar or a matrix.
 
 % TODO: compute p.
-p = 1 - ( 1 / 1 + exp(l) );
+p = exp(l) ./ (1 + exp(l));
 
 end

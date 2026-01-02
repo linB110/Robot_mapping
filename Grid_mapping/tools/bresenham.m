@@ -45,7 +45,7 @@ for n = 1:delx+1
     end    
     x_n = x_n + 1;
     error = error + dely;
-    if 2*error >= delx, % same as -> if 2*error >= delx, 
+    if 2*error >= delx% same as -> if 2*error >= delx, 
         y_n = y_n + ystep;
         error = error - delx;
     end    

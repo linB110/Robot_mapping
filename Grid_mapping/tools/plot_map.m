@@ -2,15 +2,14 @@ function plot_map(map, mapBox, robPoseMapFrame, poses, laserEndPntsMapFrame, gri
 
 	close all
 %	figure 
-figure(1);
-set(gcf,'Visible','off');
+f = figure(1);
+f.Visible = "off";
 	axis(mapBox);
 	hold on;
 	map = map';
 	imshow(ones(size(map)) - log_odds_to_prob(map))
 	s = size(map);
     s = s(1:2);
-
         set(gcf, "position", [50 50 s*5]) 
         set(gca, "position", [.05 .05 .9 .9]) 
 	traj = [poses(1:t,1)';poses(1:t,2)'];

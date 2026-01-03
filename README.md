@@ -15,7 +15,7 @@ The tools provided by source file is slightly modified to be compatible with Mat
 | EKF SLAM | <video controls width="600" src="https://github.com/user-attachments/assets/73430fb7-edc1-4bac-a772-9e65e656bbd6"></video> |
 | Unscented transform | ![My image](./video/Unscented_transform2.png)|
 | UKF SLAM | <video controls width="600" src="https://github.com/user-attachments/assets/dad4f5e3-122a-43b2-a6c0-4d93ec2fdb30"></video> |
-| Grid mapping | <video controls width="600" src="https://github.com/user-attachments/assets/e8e41809-835a-41a5-a1ff-7fcde3f6eb20"></video> |
+| Grid mapping | <video controls width="600" src="https://github.com/user-attachments/assets/05ef36a3-f72c-47e7-b0dc-630c6a53d1fc"></video> |
 | Particle filter | <video controls width="600" src="https://github.com/user-attachments/assets/ad352402-d547-442e-8083-5c641734ddfe"></video> |
 | Fast SLAM | <video controls width="600" src="https://github.com/user-attachments/assets/0e7f5520-ca31-48f6-90dc-c74f64f7dec1"></video> |
 | odometry calibration | ![My image](./video/odometry-calibration.png) |

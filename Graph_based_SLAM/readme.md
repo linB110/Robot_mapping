@@ -1,75 +1,73 @@
-## Equation
+# Pose Graph Edge Error Model
 
-$$
-\mathbf{e}_{ij}
-=
-\left[
-\mathbf{R}_{ij}^{\top}
-\left(
-\mathbf{R}_i^{\top}(\mathbf{t}_j-\mathbf{t}_i)-\mathbf{t}_{ij}
-\right)
-\right]_{2\times 1}
-=
-\begin{bmatrix}
-e_t \\
-e_0
-\end{bmatrix}
-$$
+state：
 
-## Partial derivatives
+```
+[x, y, θ]^T
+```
 
-### With respect to $x_i$ and $y_i$
+edge measurement：
 
-$$
-\frac{\partial e_t}{\partial x_i}
-=
--\mathbf{R}_{ij}^{\top}\mathbf{R}_i
-=
-\frac{\partial e_t}{\partial y_i}
-$$
+```
+[t_ij, R_ij]  ->  relative pose from node i to node j
+```
 
-### With respect to $\theta_i$
+---
 
-$$
-\frac{\partial e_t}{\partial \theta_i}
-=
-\mathbf{R}_{ij}^{\top}
-\frac{\partial \mathbf{R}_i^{\top}}{\partial \theta_i}
-(\mathbf{t}_j-\mathbf{t}_i)
-$$
+## Definition
 
-$$
-=
-\mathbf{R}_{ij}^{\top}
-\begin{bmatrix}
-\cos\theta_i & \sin\theta_i \\
--\sin\theta_i & \cos\theta_i
-\end{bmatrix}
-(\mathbf{t}_j-\mathbf{t}_i)
-$$
+Error of edge i -> j :
 
-$$
-=
-\mathbf{R}_{ij}^{\top}
-\begin{bmatrix}
--\sin\theta_i & \cos\theta_i \\
--\cos\theta_i & -\sin\theta_i
-\end{bmatrix}
-(\mathbf{t}_j-\mathbf{t}_i)
-$$
+```
+e_ij = [ R_ij^T ( R_i^T (t_j - t_i) - t_ij ) ]_{2x1}
+```
 
-### With respect to $x_j$ and $y_j$
+```
+e_ij = [ e_t
+         e_o ]
+```
 
-$$
-\frac{\partial e_t}{\partial x_j}
-=
-\mathbf{R}_{ij}^{\top}\mathbf{R}_i
-=
-\frac{\partial e_t}{\partial y_j}
-$$
+where:
 
-### With respect to $\theta_j$
+* `e_t` : translational error
+* `e_o` : rotational error
 
-$$
-\frac{\partial e_t}{\partial \theta_j}=0 \quad (\text{no } \theta_j\text{-related term})
-$$
+---
+
+## Partial Derivatives
+
+### With respect to node i: x_i, y_i
+
+```
+∂e_t / ∂x_i = - R_ij^T R_i
+∂e_t / ∂y_i = - R_ij^T R_i
+```
+
+### With respect to node i: θ_i
+
+```
+∂e_t / ∂θ_i = R_ij^T ∂R_i^T / ∂θ_i * (t_j - t_i)
+```
+
+```
+∂R_i^T / ∂θ_i = [ -sinθ_i   cosθ_i
+                  -cosθ_i  -sinθ_i ]
+```
+
+```
+∴ ∂e_t / ∂θ_i = R_ij^T [ -sinθ_i   cosθ_i
+                          -cosθ_i  -sinθ_i ] (t_j - t_i)
+```
+
+### With respect to node j: x_j, y_j
+
+```
+∂e_t / ∂x_j = R_ij^T R_i
+∂e_t / ∂y_j = R_ij^T R_i
+```
+
+### With respect to node j: θ_j
+
+```
+∂e_t / ∂θ_j = 0    # no θ_j-related term
+```

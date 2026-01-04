@@ -17,8 +17,8 @@ for eid = 1:length(g.edges)
     % Use edge.measurement and edge.information to access the
     % measurement and the information matrix respectively.
     Z_ij = v2t(edge.measurement);
-    x_diff = inv(x1) * x2;
-    e_ij = t2v(inv(Z_ij) *x_diff);
+    x_diff = (x1\x2);
+    e_ij = t2v(Z_ij \ x_diff);
 
     e = e_ij' * edge.information * e_ij;
 
@@ -34,15 +34,11 @@ for eid = 1:length(g.edges)
     % Use edge.measurement and edge.information to access the
     % measurement and the information matrix respectively.
     
-    X = v2t(x);
-    Z = v2t(edge.measurement);
-    L = v2t(l);
+    X  = v2t(x);
+    Ri = X(1:2,1:2);
     
-    e_il = t2v(inv(Z) * (inv(X)*L));
-    e = e_il' * edge.information * e_il;
-
-    % accumulate error
-    Fx = Fx + e;
+    e_il = Ri' * (l - x(1:2)) - edge.measurement;          
+    Fx = Fx + e_il' * edge.information * e_il;
   end
 
 end

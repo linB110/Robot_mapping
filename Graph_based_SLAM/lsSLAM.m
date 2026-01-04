@@ -8,12 +8,12 @@ addpath('tools');
 % only leave one line uncommented
 
 % simulation datasets
-load('../data/simulation-pose-pose.dat','-mat');
-%load(../data/simulation-pose-landmark.dat)
+%load('../data/simulation-pose-pose.dat','-mat');
+%load('../data/simulation-pose-landmark.dat','-mat');
 
 % real-world datasets
-%load ../data/intel.dat
-%load ../data/dlr.dat
+%load('../data/intel.dat','-mat');
+load('../data/dlr.dat','-mat');
 
 % plot the initial state of the graph
 plot_graph(g, 0);

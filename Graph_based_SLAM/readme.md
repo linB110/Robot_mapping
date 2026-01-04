@@ -1,43 +1,29 @@
-```markdown
-公式如下：
+# 公式
 
-$$
 e_{ij} =
-\begin{bmatrix}
-R_{ij}^T (R_i^T (t_j - t_i) - t_{ij})
-\end{bmatrix}_{2 \times 1}
+[
+    R_{ij}^T (R_i^T (t_j - t_i) - t_{ij})
+]_{2x1}
 =
-\begin{bmatrix}
-e_t \\
-e_0
-\end{bmatrix}
-$$
+[
+    e_t
+    e_0
+]
 
-偏導數公式：
+# 偏導數公式
 
-$$
-\frac{\partial e_t}{\partial x_i} = -R_{ij}^T R_i = \frac{\partial e_t}{\partial y_i}
-$$
+∂e_t/∂x_i = - R_{ij}^T R_i = ∂e_t/∂y_i
 
-$$
-\frac{\partial e_t}{\partial \theta_i} = R_{ij}^T \frac{\partial R_i^T}{\partial \theta_i} (t_j - t_i)
-= R_{ij}^T 
-\begin{bmatrix}
-\cos \theta_i & \sin \theta_i \\
--\sin \theta_i & \cos \theta_i
-\end{bmatrix}
-\frac{\partial}{\partial \theta_i} (t_j - t_i)
-= R_{ij}^T 
-\begin{bmatrix}
--\sin \theta_i & \cos \theta_i \\
--\cos \theta_i & -\sin \theta_i
-\end{bmatrix} (t_j - t_i)
-$$
+∂e_t/∂θ_i = R_{ij}^T ∂R_i^T/∂θ_i (t_j - t_i)
+           = R_{ij}^T [
+               cosθ_i   sinθ_i
+              -sinθ_i   cosθ_i
+             ] (t_j - t_i)
+           = R_{ij}^T [
+              -sinθ_i   cosθ_i
+              -cosθ_i  -sinθ_i
+             ] (t_j - t_i)
 
-$$
-\frac{\partial e_t}{\partial x_j} = R_{ij}^T R_i = \frac{\partial e_t}{\partial y_j}
-$$
+∂e_t/∂x_j = R_{ij}^T R_i = ∂e_t/∂y_j
 
-$$
-\frac{\partial e_t}{\partial \theta_j} = 0 \quad (\text{no } \theta_j \text{-related term})
-$$
+∂e_t/∂θ_j = 0   (no θ_j-related term)

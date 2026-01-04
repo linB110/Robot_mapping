@@ -44,9 +44,9 @@ for eid = 1:length(g.edges)
     j = edge.toIdx:edge.toIdx+2;
 
     H(i,i) = H(i,i) + A' * omega * A;
-    H(i,j) = H(i,i) + A' * omega * B;
-    H(j,i) = H(i,i) + B' * omega * A;
-    H(j,j) = H(i,i) + B' * omega * B;
+    H(i,j) = H(i,j) + A' * omega * B;
+    H(j,i) = H(j,i) + B' * omega * A;
+    H(j,j) = H(j,j) + B' * omega * B;
     
     b(i) = b(i) + (e' * omega * A)';
     b(j) = b(j) + (e' * omega * B)';
@@ -54,7 +54,9 @@ for eid = 1:length(g.edges)
     if (needToAddPrior)
       % TODO: add the prior for one pose of this edge
       % This fixes one node to remain at its current location
-      
+      H(i,i) = H(i,i) + eye(3) * 1e6;   
+      b(i) = b(i) + 0;
+
       needToAddPrior = false;
     end
 
@@ -79,7 +81,7 @@ for eid = 1:length(g.edges)
     % TODO: compute and add the term to H and b
     % set index of the i_th and j_th pose 
     i = edge.fromIdx:edge.fromIdx+2;
-    j = edge.toIdx:edge.toIdx+2
+    j = edge.toIdx:edge.toIdx+2;
 
     H(i,i) = H(i,i) + A' * omega * A;
     H(i,j) = H(i,i) + A' * omega * B;

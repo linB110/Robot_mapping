@@ -19,5 +19,7 @@ The tools provided by source file is slightly modified to be compatible with Mat
 | Particle filter | <video controls width="600" src="https://github.com/user-attachments/assets/ad352402-d547-442e-8083-5c641734ddfe"></video> |
 | Fast SLAM | <video controls width="600" src="https://github.com/user-attachments/assets/0e7f5520-ca31-48f6-90dc-c74f64f7dec1"></video> |
 | odometry calibration | ![My image](./video/odometry-calibration.png) |
+| Graph-based SLAM | <video controls width="600" src="https://github.com/user-attachments/assets/6cb5cae6-8498-4fb1-803d-821414af011e"></video> |
+
 
 
